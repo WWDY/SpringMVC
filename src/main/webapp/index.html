@@ -8,5 +8,31 @@
 <h1>首页</h1>
 <a href="/test1"><h2>测试一</h2></a>
 <a href="/test2"><h2>测试二</h2></a>
+
+
+<button>发送ajax请求</button>
+<script>
+    const stu = {
+        'name':'zhangsan',
+        'age':'11'
+    }
+    document.getElementsByTagName('button')[0].addEventListener("click", ()=>{
+        fetch('/json/test02',{
+            method:'POST',
+            body:JSON.stringify(stu),
+            headers:{
+                'Content-Type':'application/json'
+            }
+        }).then(res=>{
+            res.json().then(json=>{
+                if(json.code===200){
+                    alert(json.msg)
+                }
+            })
+        }).catch(error=>{
+            console.log(error)
+        })
+    })
+</script>
 </body>
 </html>
