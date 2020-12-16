@@ -9,14 +9,39 @@
 <a href="/test1"><h2>测试一</h2></a>
 <a href="/test2"><h2>测试二</h2></a>
 
+<input type="file">
+<button onclick="upload()">上传文件</button>
+<br>
+<a href="/download">下载</a>
 
 <button>发送ajax请求</button>
 <script>
+
+    const upload = ()=>{
+        let file = document.getElementsByTagName("input")[0].files[0]
+        let formData = new FormData();
+        formData.append("file",file)
+       fetch('/upload',{
+           method:'POST',
+           body:formData
+       }).then(res=>
+          res.json()
+       ).then(json=>{
+           alert(json.data)
+       }).catch(error=>{
+           alert(error)
+       })
+    }
+
+
+
+
+
     const stu = {
         'name':'zhangsan',
         'age':'11'
     }
-    document.getElementsByTagName('button')[0].addEventListener("click", ()=>{
+    document.getElementsByTagName('button')[1].addEventListener("click", ()=>{
         fetch('/json/test02',{
             method:'POST',
             body:JSON.stringify(stu),
